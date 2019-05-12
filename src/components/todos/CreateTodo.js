@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import uuid from 'uuid'
 
 class CreateTodo extends Component {
 
@@ -12,7 +13,7 @@ class CreateTodo extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addTodo(this.state)
+    this.props.addTodo({id: uuid(), text: this.state.text})
     this.setState({text: ''})
   }
 
@@ -36,7 +37,7 @@ class CreateTodo extends Component {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addTodo: formData => dispatch({ type: 'ADD_TODO', payload: formData })
+  addTodo: newTodo => dispatch({ type: 'ADD_TODO', payload: newTodo })
 })
 
 export default connect(null, mapDispatchToProps)(CreateTodo);
